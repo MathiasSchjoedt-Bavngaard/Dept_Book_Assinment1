@@ -1,0 +1,8 @@
+﻿<Application x:Class="Dept_Book.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="/Views/MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#FFFEDDA9"/>
+    </Application.Resources>
+</Application>

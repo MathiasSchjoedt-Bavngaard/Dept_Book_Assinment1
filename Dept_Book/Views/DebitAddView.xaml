@@ -1,0 +1,42 @@
+﻿<Window x:Class="Debt_Book.Views.DebitAddView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Add new debtor" Height="180" Width="250" Background="GhostWhite" FontSize="14" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,52" Grid.RowSpan="2">
+            <Label Content="Name:"/>
+            <Label Content="Initial dept:"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="2" Margin="76,0,0,52" Grid.RowSpan="2">
+            <TextBox  Name="txtBoxName" 
+                      Text="{Binding Path=CurrentDebtor.Name}" 
+                      Width="150" HorizontalAlignment="Left" 
+                      Grid.Column="0" 
+                      Margin="4" />
+            <TextBox  Name="txtBoxInitialDebt" 
+                      Text="{Binding Path=InitialDebt}" 
+                      Width="75" 
+                      HorizontalAlignment="Left"  
+                      Margin="4"/>
+        </StackPanel>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="30,8,0,22">
+            <Button Content="Add!" Width="75"  Height="20" Margin="5" Click="btnClickOK"></Button>
+            <Button IsCancel="True" Content="Cancel" Width="75" Height="20" Margin="5"></Button>
+        </WrapPanel>
+    </Grid>
+</Window>

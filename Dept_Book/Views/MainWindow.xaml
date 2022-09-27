@@ -1,0 +1,82 @@
+﻿<Window x:Class="Debt_Book.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        prism:ViewModelLocator.AutoWireViewModel ="true"
+
+        Title="{Binding Title}" Height="450" Width="550"
+        Background="{DynamicResource BackgroundBrush}" FontSize="14" >
+
+    <!-- en Trigger til når vi lukker programmet-->
+    <i:Interaction.Triggers>
+       
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <!--Global Style-->
+
+        <DataTemplate x:Key="DEBETOR">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="120" Text="name" HorizontalAlignment="Left"/>
+                <TextBlock Width="120" Text="balance" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+
+        </Grid.RowDefinitions>
+
+        <!--MENU-->
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="_File">
+                <MenuItem Header ="_New" />
+                <MenuItem Header ="_Open" />
+                <MenuItem Header ="_Save"  />
+                <MenuItem Header ="Save _As" />
+                <MenuItem Header="_Exit"  />
+            </MenuItem>
+
+        </Menu>
+
+        <!--Main content-->
+        <StackPanel Grid.Column="1" Grid.Row="2">
+
+            <Button Grid.Column="1" Content="Add Debetor" HorizontalAlignment="Left" Padding="30 0 " Margin="5 10 0 0"  />
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Margin="5">
+            <WrapPanel>
+            <TextBlock Width="120" Text="Name" HorizontalAlignment="Left" Background="LGray"/>
+            <TextBlock Width="120" Text="Balance" HorizontalAlignment="Right" Background="LightGray"/>
+            </WrapPanel>
+            <ListBox Name ="MainListBox" 
+                     
+                     ItemsSource="{Binding Path=x}"
+                     ItemTemplate="{StaticResource x}"
+                     SelectedItem="{Binding Path=CurrentDebetor}" 
+                     SelectedIndex="{Binding CurrentIndex}"
+                     IsSynchronizedWithCurrentItem="True" 
+                     Height ="240" Width="230" HorizontalAlignment="Left">
+
+                <!--Double-click trigger på ListBox skal åbne næste vindue-->
+                <i:Interaction.Triggers>
+                    
+                </i:Interaction.Triggers>
+            </ListBox>
+        </StackPanel>
+
+    </Grid>
+</Window>
