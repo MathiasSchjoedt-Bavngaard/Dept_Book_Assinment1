@@ -17,7 +17,7 @@ namespace Debt_Book.ViewModels
     public class MainWindowViewModel: BindableBase
     {
         string filePath = "";
-        private readonly string AppTitle = "Gruppe 5 Debt Book";
+        private readonly string AppTitle = "Gruppe 22 Assignment";
 
         public MainWindowViewModel()
         {
@@ -94,7 +94,7 @@ namespace Debt_Book.ViewModels
         private void ExecuteNewFile()
         {
             MessageBoxResult res = MessageBox.Show(
-                    "Any unsaved data will be lost. Are you sure you want to initiate a new file?", "Warning",
+                    "Any unsaved data will be lost. bom bom Bom  Are you sure you want to initiate a new file?", "Warning",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
             if (res == MessageBoxResult.Yes)
