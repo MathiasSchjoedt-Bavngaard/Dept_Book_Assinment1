@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using Debt_Book.Data;
 using Debt_Book.Model;
 using Debt_Book.Views;
+using Dept_Book;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -120,7 +121,7 @@ namespace Debt_Book.ViewModels
 
             dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            if (dialog.ShowDialog(App.Current.MainWindow) == true)
+            if (dialog.ShowDialog(Application.Current.MainWindow) == true)
             {
 
                 filePath = dialog.FileName;
@@ -186,7 +187,7 @@ namespace Debt_Book.ViewModels
             else
                 dialog.InitialDirectory = Path.GetDirectoryName(filePath);
 
-            if (dialog.ShowDialog(App.Current.MainWindow) == true)
+            if (dialog.ShowDialog(Application.Current.MainWindow) == true)
             {
                 filePath = dialog.FileName;
                 Filename = Path.GetFileName(filePath);

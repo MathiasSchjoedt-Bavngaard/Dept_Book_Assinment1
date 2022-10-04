@@ -59,7 +59,7 @@
 
         <StackPanel Grid.Column="0" Grid.Row="2" Margin="5">
             <WrapPanel>
-            <TextBlock Width="120" Text="Name" HorizontalAlignment="Left" Background="LGray"/>
+            <TextBlock Width="120" Text="Name" HorizontalAlignment="Left" Background="LightGray"/>
             <TextBlock Width="120" Text="Balance" HorizontalAlignment="Right" Background="LightGray"/>
             </WrapPanel>
             <ListBox Name ="MainListBox" 
