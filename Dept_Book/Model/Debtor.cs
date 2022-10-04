@@ -6,8 +6,20 @@ namespace Debt_Book.Model
 {
     public class Debtor: BindableBase
     {
-        string _name;
-        private ObservableCollection<Transaction> _transactions;
+
+        public Debtor()
+        {
+            
+            _transactions = new ObservableCollection<Transaction>();
+        }
+        public Debtor(string name)
+        {
+            _name = name;
+            _transactions = new ObservableCollection<Transaction>();
+        }
+
+
+        #region fileds and their properties
         private double _balance;
         public double Balance
         {
@@ -19,18 +31,7 @@ namespace Debt_Book.Model
         }
 
 
-        public Debtor()
-        {
-            _transactions = new ObservableCollection<Transaction>();
-        }
-
-        public Debtor(string name)
-        {
-            _name= name;
-            _transactions = new ObservableCollection<Transaction>();
-        }
-
-
+        string _name;
         public string Name
         {
             get
@@ -43,6 +44,7 @@ namespace Debt_Book.Model
             }
         }
 
+        private ObservableCollection<Transaction> _transactions;
         public ObservableCollection<Transaction> Transactions
         {
             get 
@@ -54,6 +56,11 @@ namespace Debt_Book.Model
                 SetProperty(ref _transactions, value);
             }
         }
+        #endregion
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>a copy of the object?</returns>
         public Debtor Clone()
         {
             return this.MemberwiseClone() as Debtor;

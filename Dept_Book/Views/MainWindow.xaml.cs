@@ -13,8 +13,6 @@ namespace Debt_Book.Views
         }
 
 
-
-
     }
 
 

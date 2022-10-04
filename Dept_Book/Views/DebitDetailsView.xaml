@@ -5,50 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Debt_Book.Views"
         mc:Ignorable="d"
-        Title="DebitorDetailsView" Height="450" Width="600" FontSize="14">
+        Title="DebitorDetailsView" Height="450" Width="600" FontSize="14"
+        >
     <Window.Resources>
         <DataTemplate x:Key="TransactionTemplate">
             <StackPanel Orientation="Horizontal">
 
                 <!--SKal bindes-->
-                <TextBlock Width="200" Text="Date" HorizontalAlignment="Left"/>
-                <TextBlock Width="160" Text="Value" HorizontalAlignment="Right"/>
+                <TextBlock Width="200" 
+                           Text="{Binding Path=Date}"
+                           HorizontalAlignment="Left"/>
+                <TextBlock Width="160"
+                           Text="{Binding Path=Value}"
+                           HorizontalAlignment="Right"/>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="349*"/>
-            <RowDefinition Height="85*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0">
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="10,10,0,0">Debtor Details</Label>
-            <TextBlock Margin="10" Text="CurrentDetailDebtor.Name"/>
-            <WrapPanel>
-                <TextBlock Width="200" Text="Date" HorizontalAlignment="Right" Background="BlueViolet"/>
-                <TextBlock Width="160" Text="Dept" HorizontalAlignment="Left" Background="CadetBlue"/>
-            </WrapPanel>
-            <!--.skal bindes-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="349"/>
+            <RowDefinition Height="85*"/>
+        </Grid.RowDefinitions>
+
+        <Label     Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top" 
+                   FontWeight="Bold" 
+                   Margin="10,10,0,0">Debtor Details</Label>
+
+        <StackPanel Grid.Column="0" 
+                    Grid.Row="0">
+            
+            <TextBlock Margin="10" 
+                       Text="{Binding CurrentDetailDebtor.Name}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Grid.Column="0"
+                            Text="Date" 
+                            HorizontalAlignment="Center" 
+                            />
+                <TextBlock  Grid.Column="1" 
+                            Text="Dept" 
+                            HorizontalAlignment="Center" 
+                            />
+            </Grid>
+
             <ListBox ItemsSource="{Binding CurrentDetailDebtor.Transactions}"
                      ItemTemplate="{StaticResource TransactionTemplate}"
-                      Height="200" 
-                      />
-            <!--skal bindes-->
-            <WrapPanel Width="260" HorizontalAlignment="Right">
-                <TextBlock Width="60" Text="Balance:" Background="Azure" HorizontalAlignment="Center" />
-                <TextBlock Width="200" Text="CurrentDetailDebtor.Balance" Background="Azure" HorizontalAlignment="Center" />
+                     Height="200"/>
+
+            <WrapPanel Width="260" 
+                       HorizontalAlignment="Right">
+                <TextBlock Width="60" 
+                           Text="Balance:" 
+                           Background="Azure" 
+                           HorizontalAlignment="Center" />
+                <TextBlock Width="200"
+                           Text="{Binding CurrentDetailDebtor.Balance}"
+                           Background="Azure"
+                           HorizontalAlignment="Center" />
             </WrapPanel>
 
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,48.62,0,0">
-            <WrapPanel Grid.Column="1" Grid.Row="0" Width="200" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="0" 
+                    Grid.Column="1" 
+                    Margin="0,48.62,0,0">
+            <WrapPanel Grid.Column="1" 
+                       Grid.Row="0" 
+                       Width="200" 
+                       HorizontalAlignment="Right">
                 <Label>Value:</Label>
-                <TextBox Width="100" Margin="10,0,0,0" Text="{Binding Path=NewValue}" Name="txtBoxValue"/>
+                <TextBox Width="100" 
+                         Margin="10,0,0,0" 
+                         Text="{Binding Path=NewValue}" 
+                         Name="txtBoxValue"/>
             </WrapPanel>
             <Button Width="150" 
                     Margin="56.5,10,0,0" 
@@ -56,7 +94,10 @@
                     HorizontalAlignment="Left"
                     Command="{Binding Path=AddNewTrans}">Add Value</Button>
         </StackPanel>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="50" Click="Button_Click"/>
+        <Button Content="OK" 
+                HorizontalAlignment="Left" 
+                Margin="10,0,0,0" 
+                Grid.Row="1" VerticalAlignment="Center" Width="50" Click="Button_Click"/>
         <Button Content="Reverse changes" HorizontalAlignment="Left" Margin="70,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Command="{Binding Path=CancelCommand}"/>
     </Grid>
 </Window>

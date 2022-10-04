@@ -11,6 +11,18 @@ namespace Debt_Book.Model
 {
     public class Transaction : BindableBase
     {
+        public Transaction()
+        {
+            Value = 0;
+            Date = DateTime.Now;
+        }
+        public Transaction(double value)
+        {
+            Value = value;
+            Date = DateTime.Now;
+        }
+
+        #region Properties
         private DateTime _date;
         public DateTime Date
         {
@@ -38,21 +50,13 @@ namespace Debt_Book.Model
                     _value = value;
             }
         }
+        #endregion
 
-        public Transaction()
-        {
-            Value = 0;
-            Date = DateTime.Now;
-        }
-        public Transaction(double value)
-        {
-            Value=value;
-            Date=DateTime.Now;
-        }
-
+        #region Methods
         public override string ToString()
         {
             return $"{Value} {Date}";
         }
+        #endregion
     }
 }
