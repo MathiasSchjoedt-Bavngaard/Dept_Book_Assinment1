@@ -40,9 +40,15 @@
 
             </WrapPanel>
         </DataTemplate>
-        
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10 10 10 10"/>
+            <Setter Property="Padding" Value="30 0"/>
+
+        </Style>
+
         <ControlTemplate x:Key="RoundButton"
                          TargetType="Button">
+            
             <Grid>
                 <Ellipse x:Name="backgroundElement"
                          Fill="{TemplateBinding Background}"
@@ -50,6 +56,7 @@
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center" />
             </Grid>
+            
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver"
                          Value="true">
@@ -86,8 +93,6 @@
         </Menu>
 
         <!--Main content-->
-
-
         <DockPanel  
                     Grid.Column="0" 
                     Grid.Row="1" 
@@ -110,10 +115,10 @@
             <Button 
                     DockPanel.Dock="Bottom"
                     HorizontalAlignment="Center"
-                    Padding="30 0 " 
-                    Margin="5 10 0 0"  
+                
                     Command="{Binding AddNewCommand}"
                     Template="{StaticResource RoundButton}"
+                    Style="{StaticResource RoundButtonStyle}"
                     Height="65"
                     Width="65"
                     Background="Green">

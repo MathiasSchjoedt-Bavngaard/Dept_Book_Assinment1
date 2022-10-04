@@ -4,5 +4,11 @@
              StartupUri="/Views/MainWindow.xaml">
     <Application.Resources>
         <SolidColorBrush x:Key="BackgroundBrush" Color="#FFFEDDA9"/>
+        
+        <ResourceDictionary x:Key="Libaries">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Buttons.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
