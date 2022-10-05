@@ -34,30 +34,30 @@
         <Style x:Key="RoundButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10 10 10 10"/>
             <Setter Property="Padding" Value="30 0"/>
-
-        </Style>
-
-        <ControlTemplate x:Key="RoundButton"
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
                          TargetType="Button">
-
-            <Grid>
-                <Ellipse x:Name="backgroundElement"
-                         Fill="{TemplateBinding Background}"
-                         Stroke="{TemplateBinding Foreground}" />
-                <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center" />
-            </Grid>
-
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Fill"
-                            TargetName="backgroundElement"
-                            Value="AliceBlue"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
+                        <Grid>
+                            <Ellipse x:Name="backgroundElement"
+                                Fill="{TemplateBinding Background}"
+                                Stroke="{TemplateBinding Foreground}" />
+                            <ContentPresenter 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                 Value="true">
+                                <Setter Property="Fill"
+                                    TargetName="backgroundElement"
+                                    Value="AliceBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -71,12 +71,12 @@
         </Grid.RowDefinitions>
         
         <!-- Genneral title --> 
-        <Label     Grid.ColumnSpan="2"
-                   Grid.Row="0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top" 
-                   FontWeight="Bold" 
-                   Margin="10,10,0,0">Debtor Details</Label>
+        <Label  Grid.ColumnSpan="2"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top" 
+                FontWeight="Bold" 
+                Margin="10,10,0,0">Debtor Details</Label>
         
         <!-- Left Side - Transactions -->
         <DockPanel Grid.Column="0" 
@@ -144,7 +144,6 @@
                     Height="65"
                     Background="BlueViolet"
                     Style="{StaticResource RoundButtonStyle}"
-                    Template="{StaticResource RoundButton}"
                     HorizontalAlignment="Center"
                     Command="{Binding Path=AddNewTrans}">
                 <TextBlock TextAlignment="Center" FontWeight="Bold">
@@ -155,7 +154,6 @@
                     Height="65"
                     Background="Green"
                     Style="{StaticResource RoundButtonStyle}"
-                    Template="{StaticResource RoundButton}"
                     FontWeight="Bold"
                     Content="OK" 
                     Click="Button_Click"/>
@@ -163,7 +161,6 @@
                     Height="65"
                     Background="Red"
                     Style="{StaticResource RoundButtonStyle}"
-                    Template="{StaticResource RoundButton}"
                     Command="{Binding Path=CancelCommand}"
                     >
                 <TextBlock TextAlignment="Center" FontWeight="Bold">

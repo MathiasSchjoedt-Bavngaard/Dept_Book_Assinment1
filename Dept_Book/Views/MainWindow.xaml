@@ -40,32 +40,35 @@
 
             </WrapPanel>
         </DataTemplate>
+        
         <Style x:Key="RoundButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10 10 10 10"/>
             <Setter Property="Padding" Value="30 0"/>
-
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+                         TargetType="Button">
+                        <Grid>
+                            <Ellipse x:Name="backgroundElement"
+                                Fill="{TemplateBinding Background}"
+                                Stroke="{TemplateBinding Foreground}" />
+                            <ContentPresenter 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                 Value="true">
+                                <Setter Property="Fill"
+                                    TargetName="backgroundElement"
+                                    Value="AliceBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <ControlTemplate x:Key="RoundButton"
-                         TargetType="Button">
-            
-            <Grid>
-                <Ellipse x:Name="backgroundElement"
-                         Fill="{TemplateBinding Background}"
-                         Stroke="{TemplateBinding Foreground}" />
-                <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center" />
-            </Grid>
-            
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Fill"
-                            TargetName="backgroundElement"
-                            Value="AliceBlue"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
     
 
     </Window.Resources>
@@ -117,7 +120,7 @@
                     HorizontalAlignment="Center"
                 
                     Command="{Binding AddNewCommand}"
-                    Template="{StaticResource RoundButton}"
+                    
                     Style="{StaticResource RoundButtonStyle}"
                     Height="65"
                     Width="65"
