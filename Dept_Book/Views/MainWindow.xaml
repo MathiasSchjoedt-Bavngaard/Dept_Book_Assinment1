@@ -24,14 +24,16 @@
 
         <DataTemplate x:Key="DEBTOR">
             <WrapPanel Orientation="Horizontal">
-                <Border Width="120"
+                <Border Width="{Binding ElementName=ColumnDefinitionWidth, Path=ActualWidth}"
+                        
                         BorderThickness="1"
                         BorderBrush="Black">
                     <TextBlock 
                                 Text="{Binding Path=Name}"
                                 HorizontalAlignment="Left"/>
                 </Border>
-                <Border Width="120"
+                <Border Width="{Binding ElementName=ColumnDefinitionWidth, Path=ActualWidth}"
+                        
                         BorderThickness="1"
                         BorderBrush="Black">
                     <TextBlock Text="{Binding Path=Balance}" 
@@ -100,14 +102,14 @@
                     Grid.Column="0" 
                     Grid.Row="1" 
                     Margin="5">
-            <Grid DockPanel.Dock="Top">
+            <Grid DockPanel.Dock="Top" Margin="5 0 5 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Name="ColumnDefinitionWidth" />
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
                 <TextBlock  Grid.Column="0" 
-                            Text="Name"   
+                            Text="Name"
                             HorizontalAlignment="Center"
                             FontWeight="Bold"/>
                 <TextBlock  Grid.Column="1"
@@ -118,9 +120,7 @@
             <Button 
                     DockPanel.Dock="Bottom"
                     HorizontalAlignment="Center"
-                
                     Command="{Binding AddNewCommand}"
-                    
                     Style="{StaticResource RoundButtonStyle}"
                     Height="65"
                     Width="65"
@@ -134,6 +134,7 @@
                         ItemsSource="{Binding Debtors}"
                         SelectedItem="{Binding CurrentDebtor}" 
                         ItemTemplate="{StaticResource DEBTOR}"
+                        d:ItemsSource="{d:SampleData ItemCount=5}"
                         IsSynchronizedWithCurrentItem="True" 
                         >
                 <!--    SelectedIndex="{Binding CurrentIndex}" -->
@@ -148,10 +149,7 @@
             
             
         </DockPanel>
-        <StackPanel Grid.Column="1" Grid.Row="2">
 
-            
-        </StackPanel>
 
     </Grid>
 </Window>

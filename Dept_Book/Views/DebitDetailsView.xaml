@@ -10,19 +10,19 @@
     <Window.Resources>
         <DataTemplate x:Key="TransactionTemplate">
             <WrapPanel Orientation="Horizontal">
-                <Border Width="120"
+                <Border Width="{Binding ElementName=ColumnWidth, Path=ActualWidth}"
                         BorderThickness="1"
                         BorderBrush="Black">
                     <TextBlock  Padding="5 0 0 0"
                                 Text="{Binding Path=Date}"
-                                HorizontalAlignment="Left"/>
+                                />
                 </Border>
-                <Border Width="120"
+                <Border Width="{Binding ElementName=ColumnWidth, Path=ActualWidth}"
                         BorderThickness="1"
                         BorderBrush="Black">
                     <TextBlock  Padding="5 0 0 0"
                                 Text="{Binding Path=Value}" 
-                                HorizontalAlignment="Left"/>
+                                />
                 </Border>
 
             </WrapPanel>
@@ -104,10 +104,10 @@
 
             </Grid>
 
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+            <Grid DockPanel.Dock="Top" Margin=" 13 0 10 0">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition  Name="ColumnWidth"/>
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock  Grid.Column="0"
                             Text="Date" 
@@ -120,6 +120,7 @@
             </Grid>
 
             <ListBox    DockPanel.Dock="Bottom"
+                        Margin="5 0 5 0"
                         ItemsSource="{Binding CurrentDetailDebtor.Transactions}"
                         ItemTemplate="{StaticResource TransactionTemplate}"
                         d:ItemsSource="{d:SampleData ItemCount=5}"/>
@@ -129,8 +130,7 @@
         </DockPanel>
         <!-- Left side - Input and Buttons-->
         <StackPanel Grid.Row="1" 
-                    Grid.Column="1" 
-                    Margin="0,48.62,0,0">
+                    Grid.Column="1">
 
 
             <TextBox  
