@@ -100,6 +100,7 @@ namespace Debt_Book.ViewModels
         {
            for (int i = ChangesCount; i >0; i--)
            {
+                if(CurrentDetailDebtor.Transactions.Count>0)
                 CurrentDetailDebtor.Transactions.RemoveAt(CurrentDetailDebtor.Transactions.Count - 1);
            }
            CurrentDetailDebtor.UpdateBalance();

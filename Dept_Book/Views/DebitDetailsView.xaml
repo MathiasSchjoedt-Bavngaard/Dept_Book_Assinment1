@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="DebitorDetailsView" Height="450" Width="400" FontSize="14"
         >
+    
     <Window.Resources>
         <DataTemplate x:Key="TransactionTemplate">
             <WrapPanel Orientation="Horizontal">
@@ -26,6 +27,12 @@
                 </Border>
 
             </WrapPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="TransactionTemplate2">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="200" Text="{Binding Path=Date}" HorizontalAlignment="Left"/>
+                <TextBlock Width="160" Text="{Binding Path=Value}" HorizontalAlignment="Right"/>
+            </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="DEBTOR">
             
@@ -80,7 +87,7 @@
         
         <!-- Left Side - Transactions -->
         <DockPanel Grid.Column="0" 
-                    Grid.Row="1">
+                    Grid.Row="1" >
             <Grid DockPanel.Dock="Top" Height="Auto">
                 
                 <Grid.ColumnDefinitions>
@@ -98,7 +105,7 @@
                             Background="Azure" 
                              />
                 <TextBlock  Grid.Column="2"
-                            Text="{Binding CurrentDetailDebtor.Balance}"
+                            Text="{Binding Path=CurrentDetailDebtor.Balance}"
                             Background="Azure"
                              />
 
@@ -119,11 +126,12 @@
                             />
             </Grid>
 
-            <ListBox    DockPanel.Dock="Bottom"
-                        Margin="5 0 5 0"
-                        ItemsSource="{Binding CurrentDetailDebtor.Transactions}"
-                        ItemTemplate="{StaticResource TransactionTemplate}"
-                        d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            <ListBox    Name="Listbox1"
+                        ItemsSource="{Binding Path=CurrentDetailDebtor.Transactions}"
+                        ItemTemplate="{StaticResource TransactionTemplate2}"
+                        DockPanel.Dock="Bottom"
+                        Margin="5 0 5 0" Width="256"
+                        />
 
             
 
