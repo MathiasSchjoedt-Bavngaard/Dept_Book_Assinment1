@@ -8,75 +8,148 @@
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel ="true"
 
-        Title="{Binding Title}" Height="450" Width="550"
+        Title="{Binding Title}" Height="450" Width="300"
         Background="{DynamicResource BackgroundBrush}" FontSize="14" >
 
     <!-- en Trigger til når vi lukker programmet-->
     <i:Interaction.Triggers>
-       
+        <i:EventTrigger EventName="Closing">
+            <prism:InvokeCommandAction Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Window.Resources>
         <!--Global Style-->
 
-        <DataTemplate x:Key="DEBETOR">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Width="120" Text="name" HorizontalAlignment="Left"/>
-                <TextBlock Width="120" Text="balance" HorizontalAlignment="Right"/>
-            </StackPanel>
+
+        <DataTemplate x:Key="DEBTOR">
+            <WrapPanel Orientation="Horizontal">
+                <Border Width="{Binding ElementName=ColumnDefinitionWidth, Path=ActualWidth}"
+                        
+                        BorderThickness="1"
+                        BorderBrush="Black">
+                    <TextBlock 
+                                Text="{Binding Path=Name}"
+                                HorizontalAlignment="Left"/>
+                </Border>
+                <Border Width="{Binding ElementName=ColumnDefinitionWidth, Path=ActualWidth}"
+                        
+                        BorderThickness="1"
+                        BorderBrush="Black">
+                    <TextBlock Text="{Binding Path=Balance}" 
+                               HorizontalAlignment="Left"/>
+                </Border>
+
+            </WrapPanel>
         </DataTemplate>
+        
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10 10 10 10"/>
+            <Setter Property="Padding" Value="30 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+                         TargetType="Button">
+                        <Grid>
+                            <Ellipse x:Name="backgroundElement"
+                                Fill="{TemplateBinding Background}"
+                                Stroke="{TemplateBinding Foreground}" />
+                            <ContentPresenter 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                 Value="true">
+                                <Setter Property="Fill"
+                                    TargetName="backgroundElement"
+                                    Value="AliceBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    
 
     </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+ 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <!--MENU-->
-        <Menu Grid.ColumnSpan="2">
+        <Menu Grid.ColumnSpan="2" Grid.Row="0">
+         
             <MenuItem Header="_File">
-                <MenuItem Header ="_New" />
-                <MenuItem Header ="_Open" />
-                <MenuItem Header ="_Save"  />
-                <MenuItem Header ="Save _As" />
-                <MenuItem Header="_Exit"  />
+                <MenuItem Header="_New" Command="{Binding NewFileCommand}"/>
+                <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" />
+                <MenuItem Header="_Save" Command="{Binding SaveFileCommand}" />
+                <MenuItem Header="Save _As" Command="{Binding SaveAsCommand}" />
+                <MenuItem Header="E_xit" Command="{Binding ClosingCommand}"/>
             </MenuItem>
-
         </Menu>
 
         <!--Main content-->
-        <StackPanel Grid.Column="1" Grid.Row="2">
-
-            <Button Grid.Column="1" Content="Add Debetor" HorizontalAlignment="Left" Padding="30 0 " Margin="5 10 0 0"  />
-        </StackPanel>
-
-        <StackPanel Grid.Column="0" Grid.Row="2" Margin="5">
-            <WrapPanel>
-            <TextBlock Width="120" Text="Name" HorizontalAlignment="Left" Background="LightGray"/>
-            <TextBlock Width="120" Text="Balance" HorizontalAlignment="Right" Background="LightGray"/>
-            </WrapPanel>
-            <ListBox Name ="MainListBox" 
-                     
-                     ItemsSource="{Binding Path=x}"
-                     ItemTemplate="{StaticResource x}"
-                     SelectedItem="{Binding Path=CurrentDebetor}" 
-                     SelectedIndex="{Binding CurrentIndex}"
-                     IsSynchronizedWithCurrentItem="True" 
-                     Height ="240" Width="230" HorizontalAlignment="Left">
+        <DockPanel  
+                    Grid.Column="0" 
+                    Grid.Row="1" 
+                    Margin="5">
+            <Grid DockPanel.Dock="Top" Margin="5 0 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Name="ColumnDefinitionWidth" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock  Grid.Column="0" 
+                            Text="Name"
+                            HorizontalAlignment="Center"
+                            FontWeight="Bold"/>
+                <TextBlock  Grid.Column="1"
+                            Text="Balance" 
+                            HorizontalAlignment="Center"
+                            FontWeight="Bold"/>
+            </Grid>
+            <Button 
+                    DockPanel.Dock="Bottom"
+                    HorizontalAlignment="Center"
+                    Command="{Binding AddNewCommand}"
+                    Style="{StaticResource RoundButtonStyle}"
+                    Height="65"
+                    Width="65"
+                    Background="Green">
+                <TextBlock TextAlignment="Center" FontWeight="Bold">
+                    Add<LineBreak/>Deptor
+                </TextBlock>
+            </Button>
+            <ListBox    DockPanel.Dock="Bottom"
+                        Name ="MainListBox" 
+                        ItemsSource="{Binding Debtors}"
+                        SelectedItem="{Binding CurrentDebtor}" 
+                        ItemTemplate="{StaticResource DEBTOR}"
+                        d:ItemsSource="{d:SampleData ItemCount=5}"
+                        IsSynchronizedWithCurrentItem="True" 
+                        >
+                <!--    SelectedIndex="{Binding CurrentIndex}" -->
 
                 <!--Double-click trigger på ListBox skal åbne næste vindue-->
                 <i:Interaction.Triggers>
-                    
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <prism:InvokeCommandAction Command="{Binding DebitDetailsCommand}"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
-        </StackPanel>
+            
+            
+        </DockPanel>
+
 
     </Grid>
 </Window>

@@ -5,58 +5,177 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Debt_Book.Views"
         mc:Ignorable="d"
-        Title="DebitorDetailsView" Height="450" Width="600" FontSize="14">
+        Title="DebitorDetailsView" Height="450" Width="400" FontSize="14"
+        >
+    
     <Window.Resources>
         <DataTemplate x:Key="TransactionTemplate">
-            <StackPanel Orientation="Horizontal">
+            <WrapPanel Orientation="Horizontal">
+                <Border Width="{Binding ElementName=ColumnWidth, Path=ActualWidth}"
+                        BorderThickness="1"
+                        BorderBrush="Black">
+                    <TextBlock  Padding="5 0 0 0"
+                                Text="{Binding Path=Date}"
+                                />
+                </Border>
+                <Border Width="{Binding ElementName=ColumnWidth, Path=ActualWidth}"
+                        BorderThickness="1"
+                        BorderBrush="Black">
+                    <TextBlock  Padding="5 0 0 0"
+                                Text="{Binding Path=Value}" 
+                                />
+                </Border>
 
-                <!--SKal bindes-->
-                <TextBlock Width="200" Text="Date" HorizontalAlignment="Left"/>
-                <TextBlock Width="160" Text="Value" HorizontalAlignment="Right"/>
+            </WrapPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="TransactionTemplate2">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="200" Text="{Binding Path=Date}" HorizontalAlignment="Left"/>
+                <TextBlock Width="160" Text="{Binding Path=Value}" HorizontalAlignment="Right"/>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="DEBTOR">
+            
+        </DataTemplate>
+
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10 10 10 10"/>
+            <Setter Property="Padding" Value="30 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+                         TargetType="Button">
+                        <Grid>
+                            <Ellipse x:Name="backgroundElement"
+                                Fill="{TemplateBinding Background}"
+                                Stroke="{TemplateBinding Foreground}" />
+                            <ContentPresenter 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                 Value="true">
+                                <Setter Property="Fill"
+                                    TargetName="backgroundElement"
+                                    Value="AliceBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="349*"/>
-            <RowDefinition Height="85*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0">
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="10,10,0,0">Debtor Details</Label>
-            <TextBlock Margin="10" Text="CurrentDetailDebtor.Name"/>
-            <WrapPanel>
-                <TextBlock Width="200" Text="Date" HorizontalAlignment="Right" Background="BlueViolet"/>
-                <TextBlock Width="160" Text="Dept" HorizontalAlignment="Left" Background="CadetBlue"/>
-            </WrapPanel>
-            <!--.skal bindes-->
-            <ListBox ItemsSource="{Binding CurrentDetailDebtor.Transactions}"
-                     ItemTemplate="{StaticResource TransactionTemplate}"
-                      Height="200" 
-                      />
-            <!--skal bindes-->
-            <WrapPanel Width="260" HorizontalAlignment="Right">
-                <TextBlock Width="60" Text="Balance:" Background="Azure" HorizontalAlignment="Center" />
-                <TextBlock Width="200" Text="CurrentDetailDebtor.Balance" Background="Azure" HorizontalAlignment="Center" />
-            </WrapPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Genneral title --> 
+        <Label  Grid.ColumnSpan="2"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top" 
+                FontWeight="Bold" 
+                Margin="10,10,0,0">Debtor Details</Label>
+        
+        <!-- Left Side - Transactions -->
+        <DockPanel Grid.Column="0" 
+                    Grid.Row="1" >
+            <Grid DockPanel.Dock="Top" Height="Auto">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock  Grid.Column="0" 
+                            Text="{Binding CurrentDetailDebtor.Name}"/>
+                
+                <TextBlock  Grid.Column="1"
+                            Text="Balance:" 
+                            TextAlignment="Center"
+                            Background="Azure" 
+                             />
+                <TextBlock  Grid.Column="2"
+                            Text="{Binding Path=CurrentDetailDebtor.Balance}"
+                            Background="Azure"
+                             />
 
+            </Grid>
+
+            <Grid DockPanel.Dock="Top" Margin=" 13 0 10 0">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition  Name="ColumnWidth"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock  Grid.Column="0"
+                            Text="Date" 
+                            HorizontalAlignment="Center" 
+                            />
+                <TextBlock  Grid.Column="1" 
+                            Text="Value" 
+                            HorizontalAlignment="Center" 
+                            />
+            </Grid>
+
+            <ListBox    Name="Listbox1"
+                        ItemsSource="{Binding Path=CurrentDetailDebtor.Transactions}"
+                        ItemTemplate="{StaticResource TransactionTemplate2}"
+                        DockPanel.Dock="Bottom"
+                        Margin="5 0 5 0" Width="256"
+                        />
+
+            
+
+        </DockPanel>
+        <!-- Left side - Input and Buttons-->
+        <StackPanel Grid.Row="1" 
+                    Grid.Column="1">
+
+
+            <TextBox  
+                        Margin="10,10,10,0" 
+                        Text="{Binding Path=NewValue}" 
+                        Name="txtBoxValue" AutomationProperties.HelpText="Enter new transaction here"
+                        />
+
+
+            <Button Width="65"
+                    Height="65"
+                    Background="BlueViolet"
+                    Style="{StaticResource RoundButtonStyle}"
+                    HorizontalAlignment="Center"
+                    Command="{Binding Path=AddNewTrans}">
+                <TextBlock TextAlignment="Center" FontWeight="Bold">
+                    Add<LineBreak/>Value
+                </TextBlock>
+            </Button>
+            <Button Width="65"
+                    Height="65"
+                    Background="Green"
+                    Style="{StaticResource RoundButtonStyle}"
+                    FontWeight="Bold"
+                    Content="OK" 
+                    Click="Button_Click"/>
+            <Button Width="65"
+                    Height="65"
+                    Background="Red"
+                    Style="{StaticResource RoundButtonStyle}"
+                    Command="{Binding Path=CancelCommand}"
+                    >
+                <TextBlock TextAlignment="Center" FontWeight="Bold">
+                    Clear<LineBreak/>Changes
+                </TextBlock>
+            </Button>
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,48.62,0,0">
-            <WrapPanel Grid.Column="1" Grid.Row="0" Width="200" HorizontalAlignment="Right">
-                <Label>Value:</Label>
-                <TextBox Width="100" Margin="10,0,0,0" Text="{Binding Path=NewValue}" Name="txtBoxValue"/>
-            </WrapPanel>
-            <Button Width="150" 
-                    Margin="56.5,10,0,0" 
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Left"
-                    Command="{Binding Path=AddNewTrans}">Add Value</Button>
-        </StackPanel>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="50" Click="Button_Click"/>
-        <Button Content="Reverse changes" HorizontalAlignment="Left" Margin="70,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Command="{Binding Path=CancelCommand}"/>
+
     </Grid>
 </Window>

@@ -30,5 +30,7 @@ namespace Debt_Book.Views
         {
             DialogResult = true;
         }
+
+       
     }
 }

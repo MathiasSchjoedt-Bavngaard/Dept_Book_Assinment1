@@ -15,6 +15,19 @@ namespace Debt_Book.ViewModels
 {
     public class DebitDetailsViewModel: BindableBase
     {
+        public DebitDetailsViewModel()
+        {
+
+        }
+
+        public DebitDetailsViewModel(Debtor debtor)
+        {
+            CurrentDetailDebtor = debtor;
+            ChangesCount = 0;
+        }
+
+        #region fileds and properties 
+
         private Debtor _currentDetailDebtor;
         
         public Debtor CurrentDetailDebtor
@@ -54,16 +67,7 @@ namespace Debt_Book.ViewModels
                 SetProperty(ref _changesCount, value);
             }
         }
-        public DebitDetailsViewModel()
-        {
-            
-        }
-
-        public DebitDetailsViewModel(Debtor debtor)
-        {
-            CurrentDetailDebtor = debtor;
-            ChangesCount = 0;
-        }
+        #endregion
 
         #region Commands
 
@@ -96,6 +100,7 @@ namespace Debt_Book.ViewModels
         {
            for (int i = ChangesCount; i >0; i--)
            {
+                if(CurrentDetailDebtor.Transactions.Count>0)
                 CurrentDetailDebtor.Transactions.RemoveAt(CurrentDetailDebtor.Transactions.Count - 1);
            }
            CurrentDetailDebtor.UpdateBalance();
